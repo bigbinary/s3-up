@@ -9,6 +9,12 @@
     "type": "git",
     "url": "https://github.com/labeebklatif/s3-up.git"
   },
+  "keywords": [
+    "node",
+    "aws",
+    "s3",
+    "upload"
+  ],
   "dependencies": {
     "aws-sdk": "^2.1261.0",
     "glob": "^8.0.3",
