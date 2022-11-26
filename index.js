@@ -7,12 +7,13 @@ const minimatch = require("minimatch");
 const AWS = require("aws-sdk");
 
 module.exports = class Uploader {
-  constructor({ bucket, destination }) {
+  constructor({ bucket, destination, clean = true }) {
     this.s3 = new AWS.S3();
     this.bucket = bucket;
     this.bucketPath = destination;
     this.files = [];
     this.exclude = [];
+    this.clean = clean;
     this.fileProperties = {};
   }
 
@@ -41,7 +42,31 @@ module.exports = class Uploader {
     return true;
   };
 
+  cleanDestination = async () => {
+    if (this.clean === false) return;
+
+    console.log("Cleaning destination");
+
+    const listParams = { Bucket: this.bucket, Prefix: this.bucketPath };
+    const listedObjects = await this.s3.listObjectsV2(listParams).promise();
+    if (listedObjects.Contents.length === 0) return;
+
+    const deleteObjects = listedObjects.Contents.map(({ Key }) => ({ Key }));
+    const deleteParams = {
+      Bucket: this.bucket,
+      Delete: { Objects: deleteObjects },
+    };
+    await this.s3.deleteObjects(deleteParams).promise();
+
+    // s3 returns list as chunks which needs to be recursively fetched. isTruncated becomes false if all items are returned.
+    if (listedObjects.IsTruncated) await this.cleanDestination();
+    else console.log("Destination is now clean!");
+  };
+
   upload = async () => {
+    console.log("Starting upload");
+    this.cleanDestination();
+
     for (let file of this.files) {
       if (this.validateFile(file) === false) continue;
 
@@ -67,6 +92,8 @@ module.exports = class Uploader {
         );
       }
     }
+
+    console.log("Upload completed");
   };
 
   addFile = (file) => {
