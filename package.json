@@ -1,5 +1,5 @@
 {
-  "name": "s3-up",
+  "name": "@labeebklatif/s3-up",
   "version": "1.0.0",
   "description": "S3 upload",
   "main": "index.js",
