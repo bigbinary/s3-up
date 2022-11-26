@@ -83,7 +83,7 @@ module.exports = class Uploader {
       try {
         await this.s3.putObject(params).promise();
         console.log(
-          `Uploaded ${file} to bucket: ${params.Bucket}/${params.Key}`
+          `Uploaded ${file.path} to bucket: ${params.Bucket}/${params.Key}`
         );
       } catch (error) {
         console.error(
