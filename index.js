@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const glob = require("glob");
 const minimatch = require("minimatch");
+const mime = require("mime-types");
 const AWS = require("aws-sdk");
 
 module.exports = class Uploader {
@@ -55,6 +56,7 @@ module.exports = class Uploader {
         Bucket: this.bucket,
         Key: path.join(this.bucketPath, file.basePath),
         Body: fs.readFileSync(file.path),
+        ContentType: mime.lookup(file.path),
         ...properties,
       };
 
