@@ -56,7 +56,6 @@ new Uploader(configuration)
 key should be a valid Unix style pattern to match file and value should be an object with additional file properties.
 
 </br>
-</br>
 
 By default, the library attempts to find matching `ContentType` for each uploaded file using `mime-type` module.
 You can override the default properties or assign additional properties for a matching file as follows. 
