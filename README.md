@@ -1,5 +1,5 @@
 # s3-up
-Upload your local files and directories directly to S3 🪣 with NodeJS. Particulary usefull if you are having a S3 served website. 
+Upload your local files and directories directly to S3 🪣 with NodeJS. Particulary useful if you are having a S3 served website. 
 This library can be used as part of your build pipeline to deploy new assets. Uploads multiple individual files and directory contents together to a common S3 path.
 </br>
 
