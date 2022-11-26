@@ -1,0 +1,13 @@
+{
+  "name": "s3-up",
+  "version": "1.0.0",
+  "description": "S3 upload",
+  "main": "lib/index.js",
+  "author": "https://github.com/labeebklatif",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.1261.0",
+    "glob": "^8.0.3",
+    "minimatch": "^5.1.0"
+  }
+}
