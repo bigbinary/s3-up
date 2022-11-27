@@ -8,14 +8,14 @@ const mime = require("mime-types");
 const AWS = require("aws-sdk");
 
 module.exports = class Uploader {
-  constructor({ bucket, destination, clean = true }) {
+  constructor({ bucket, destination, clean = true, fileProperties = {} }) {
     this.s3 = new AWS.S3();
     this.bucket = bucket;
     this.bucketPath = destination;
     this.files = [];
     this.exclude = [];
     this.clean = clean;
-    this.fileProperties = {};
+    this.fileProperties = fileProperties;
   }
 
   getFileProperties = (file) => {
