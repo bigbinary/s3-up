@@ -1,5 +1,5 @@
 {
-  "name": "@bigbinary/s3-up",
+  "name": "@bigbinary/s3-uploader",
   "version": "1.1.5",
   "description": "S3 upload",
   "main": "index.js",
