@@ -9,13 +9,13 @@ This library can be used as part of your build pipeline to deploy new assets. Up
 **npm**
 
 ```sh
-npm install --save-dev @labeebklatif/s3-up
+npm install --save-dev https://github.com/bigbinary/s3-uploader
 ```
 
 **yarn**
 
 ```sh
-yarn add --dev @labeebklatif/s3-up
+yarn add --dev https://github.com/bigbinary/s3-uploader
 ```
 
 ## Usage
@@ -23,7 +23,7 @@ yarn add --dev @labeebklatif/s3-up
 #### Basic Usage
 
 ```js
-const Uploader = require("@labeebklatif/s3-up");
+const Uploader = require("@bigbinary/s3-uploader");
 
 const uploader = new Uploader({
   bucket: "s3-bucket-name",
