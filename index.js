@@ -14,7 +14,7 @@ module.exports = class Uploader {
     distribution,
     clean = true,
     fileProperties = {},
-    invalidationPath = "/*",
+    distributionPath = "/*",
   }) {
     this.s3 = new AWS.S3();
     this.bucket = bucket;
@@ -29,9 +29,9 @@ module.exports = class Uploader {
       this.cloudFront = new AWS.CloudFront();
       this.distribution = distribution;
       this.invalidationPath =
-        typeof invalidationPath === "string"
-          ? [invalidationPath]
-          : invalidationPath;
+        typeof distributionPath === "string"
+          ? [distributionPath]
+          : distributionPath;
     }
   }
 
@@ -122,8 +122,8 @@ module.exports = class Uploader {
       InvalidationBatch: {
         CallerReference: `${+new Date()}`,
         Paths: {
-          Items: this.invalidationPath,
-          Quantity: this.invalidationPath.length,
+          Items: this.distributionPath,
+          Quantity: this.distributionPath.length,
         },
       },
     };
