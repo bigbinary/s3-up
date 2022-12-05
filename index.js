@@ -122,8 +122,8 @@ module.exports = class Uploader {
       InvalidationBatch: {
         CallerReference: `${+new Date()}`,
         Paths: {
-          Items: this.distributionPath,
-          Quantity: this.distributionPath.length,
+          Items: this.invalidationPath,
+          Quantity: this.invalidationPath.length,
         },
       },
     };
