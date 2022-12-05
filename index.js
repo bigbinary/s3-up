@@ -8,7 +8,14 @@ const mime = require("mime-types");
 const AWS = require("aws-sdk");
 
 module.exports = class Uploader {
-  constructor({ bucket, destination, clean = true, fileProperties = {} }) {
+  constructor({
+    bucket,
+    destination,
+    distribution,
+    clean = true,
+    fileProperties = {},
+    invalidationPath = "/*",
+  }) {
     this.s3 = new AWS.S3();
     this.bucket = bucket;
     this.bucketPath = destination;
@@ -16,6 +23,16 @@ module.exports = class Uploader {
     this.exclude = [];
     this.clean = clean;
     this.fileProperties = fileProperties;
+
+    if (distribution) {
+      this.invalidate = true;
+      this.cloudFront = new AWS.CloudFront();
+      this.distribution = distribution;
+      this.invalidationPath =
+        typeof invalidationPath === "string"
+          ? [invalidationPath]
+          : invalidationPath;
+    }
   }
 
   getFileProperties = (file) => {
@@ -97,6 +114,24 @@ module.exports = class Uploader {
     else console.log("Destination is now clean!");
   };
 
+  invalidateDistribution = async () => {
+    if (this.invalidate !== true) return;
+
+    const params = {
+      DistributionId: this.distribution,
+      InvalidationBatch: {
+        CallerReference: `${+new Date()}`,
+        Paths: {
+          Items: this.invalidationPath,
+          Quantity: this.invalidationPath.length,
+        },
+      },
+    };
+
+    await this.cloudFront.createInvalidation(params).promise();
+    console.log("Distribution invalidation created!");
+  };
+
   addFile = (file) => {
     // add individual files by path;
     const fileObj = {};
@@ -119,5 +154,6 @@ module.exports = class Uploader {
   upload = async () => {
     await this.cleanDestination();
     await this.uploadFiles();
+    await this.invalidateDistribution();
   };
 };
