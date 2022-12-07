@@ -71,7 +71,9 @@ module.exports = class Uploader {
 
       const params = {
         Bucket: this.bucket,
-        Key: path.join(this.bucketPath, file.basePath),
+        Key: this.bucketPath
+          ? path.join(this.bucketPath, file.basePath)
+          : this.basePath,
         Body: fs.readFileSync(file.path),
         ContentType: mime.lookup(file.path),
         ...properties,
