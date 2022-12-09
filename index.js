@@ -73,7 +73,7 @@ module.exports = class Uploader {
         Bucket: this.bucket,
         Key: this.bucketPath
           ? path.join(this.bucketPath, file.basePath)
-          : this.basePath,
+          : file.basePath,
         Body: fs.readFileSync(file.path),
         ContentType: mime.lookup(file.path),
         ...properties,
