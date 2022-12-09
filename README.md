@@ -52,14 +52,18 @@ new Uploader(configuration);
 
 `configuration` object can have following properties to control the behavior of the uploader:
 
-⚙️ `bucket` : (String) Name of the bucket of the target S3 bucket.
+⚙️ **`bucket`** : _(String)_ Name of the bucket of the target S3 bucket.
 
-⚙️ `path` : (String) Path to the target directory in bucket where files should be uploaded.
+⚙️ **`path`** : _(String)_ Path to the target directory in bucket where files should be uploaded.
 
-⚙️ `clean` : (Boolean: true) Indicates whether target directory and contents should be removed before starting upload. Setting this false will skip this feature.
+⚙️ **`clean`** : _(Boolean: true)_ Indicates whether target directory and contents should be removed before starting upload. Setting this false will skip this feature.
 
-⚙️ `fileProperties` : (Object: {}) key-value pairs that providers additional file properties.
+⚙️ **`fileProperties`** : _(Object: {})_ key-value pairs that providers additional file properties.
 key should be a valid Unix style pattern to match file and value should be an object with additional file properties.
+
+⚙️ **`distribution`** : _(String)_ CloudFront distribution id if you want to invalidate the distribution after successfull upload.
+
+⚙️ **`distributionPath`** : _(String: '/\*' | Array)_ CloudFront distribution path if you want to invalidate only a particular path within the distribution. If you want to target multiple paths, use an array of strings. Supports UNIX style path patterns.
 
 </br>
 
