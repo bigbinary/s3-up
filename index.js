@@ -12,7 +12,7 @@ module.exports = class Uploader {
     bucket,
     destination,
     distribution,
-    clean = true,
+    clean = false,
     fileProperties = {},
     distributionPath = "/*",
   }) {
